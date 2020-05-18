@@ -1,0 +1,43 @@
+---
+version: '2'
+
+services:
+  chousei-db:
+    image: postgres:10-alpine
+    container_name: chousei-db
+    environment:
+      POSTGRES_DB: chousei
+      POSTGRES_USER: chousei
+      POSTGRES_PASSWORD: chousei
+      LANG: ja_JP.UTF-8
+    volumes:
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 15432:5432
+
+  chousei-api:
+    build: ./api
+    image: chousei-api
+    container_name: chousei-api
+    environment:
+      NODE_ENV: production
+    hostname: "chousei-api"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chousei-db
+
+  chousei-front:
+    build: 
+      context: ./front
+      dockerfile: Dockerfile_front_dev
+    container_name: chousei-front-dev
+    hostname: "chouseiFront"
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./front:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: /bin/sh
