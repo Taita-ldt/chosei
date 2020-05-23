@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <EvenlyArticle>
-      <template v-slot:head>日程調整</template>
+      <template v-slot:head>スケジュール入力</template>
       <template v-slot:body>
         <div class='col-6'>
           <q-select filled label="name" v-model="model" :options="userlist" @input="toChousei"/>
@@ -9,10 +9,10 @@
       </template>
     </EvenlyArticle>
     <EvenlyArticle>
-      <template v-slot:head>候補日</template>
+      <template v-slot:head>コート抽選候補日</template>
       <template v-slot:body>
         <span v-for="(data, index) in candidateDate" :key="index">
-          {{toLocateDate(data.candidate_date)}}
+          {{formatDate(data.candidate_date)}}
         </span>
       </template>
     </EvenlyArticle>
@@ -80,7 +80,10 @@ export default {
     toResult() {
       console.log('集計結果画面');
     },
-    toLocateDate: (date) => new Date(date).toLocaleDateString(),
+    formatDate: (date) => {
+      const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };
+      return new Date(date).toLocaleString('ja-JP', options);
+    },
   },
 };
 </script>
