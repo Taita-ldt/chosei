@@ -17,16 +17,23 @@ services:
       - 15432:5432
 
   chousei-api:
-    build: ./api
+    build: 
+      context: ./api
+      dockerfile: Dockerfile_api_dev
     image: chousei-api
-    container_name: chousei-api
+    container_name: chousei-api-dev
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
     hostname: "chousei-api"
     ports:
       - "3000:3000"
     depends_on:
       - chousei-db
+    volumes:
+      - ./api:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: /bin/sh
 
   chousei-front:
     build: 
