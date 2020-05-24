@@ -48,7 +48,7 @@ export default {
 
   methods: {
     formatDate: (date) => {
-      const options = { yaer: 'long', month: 'long', day: 'numeric' };
+      const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };
       return new Date(date).toLocaleString('ja-JP', options);
     },
   },

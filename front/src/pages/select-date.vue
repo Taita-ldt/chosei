@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <EvenlyArticle>
-      <template v-slot:head>{{userName}}さん日程調整</template>
+      <template v-slot:head>{{userName}}さん スケジュール入力</template>
       <template v-slot:body>
         <date-select-form
           :datalist='candidateDates'
@@ -10,7 +10,7 @@
       </template>
     </EvenlyArticle>
     <div class="row justify-center q-pa-md">
-      <q-btn color="primary" @click="toChousei" label="調整する"/>
+      <q-btn color="primary" @click="toChousei" label="確定"/>
     </div>
   </q-page>
 
