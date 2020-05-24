@@ -49,6 +49,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'import/prefer-default-export': 'off',
     'prefer-promise-reject-errors': 'off',
+    'object-curly-newline': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
