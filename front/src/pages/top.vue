@@ -16,15 +16,15 @@
         </span>
       </template>
     </EvenlyArticle>
-    <!-- <EvenlyArticle>
+    <EvenlyArticle>
       <template v-slot:head>回答者</template>
       <template v-slot:body>
         <span v-for="(data, index) in respondent" :key="index">
-          {{data.candidate_date}}
+          {{data.user_name}}
         </span>
       </template>
     </EvenlyArticle>
-    <EvenlyArticle>
+    <!-- <EvenlyArticle>
       <template v-slot:head>集計結果</template>
       <template v-slot:body>
         <div>
@@ -98,13 +98,11 @@ export default {
     async initForm() {
       await this.authCheck();
       this.getUserResponse = await chouseiApi.getUser();
-      this.candidateDate = await chouseiApi.getCandidateDate(getQuaryDate());
-      const candidateData = {
-        candidate_date: [1, 2, 3],
-        respondent: ['a', 'b', 'c'],
-      };
       this.userlist = _.map(this.getUserResponse, 'name');
-      this.respondent = candidateData.respondent;
+
+      const getCandidateDateResponse = await chouseiApi.getCandidateDate(getQuaryDate());
+      this.candidateDate = getCandidateDateResponse.date;
+      this.respondent = getCandidateDateResponse.user;
     },
     toChousei() {
       const userdata = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model));
