@@ -9,7 +9,7 @@ module.exports = {
     logger.info('Start getCandidateDateAPI');
     try {
       const response = await getCandidateDateService.getCandidateDate(req.params.month);
-      res.status(200).send(response[0]);
+      res.status(200).send(response);
     } catch (error) {
       throw (error);
     } finally {
