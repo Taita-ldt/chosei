@@ -43,5 +43,28 @@ Starting chousei-front ... done
 ```
 コンテナ起動後、http://localhost:8080 にアクセス。
 
+## Frontのみを開発用のコンテナで起動するパターン
+コンテナをdocker-compose.develop.ymlで立ち上げる
+```
+$ repository\chousei> docker-compose -f docker-compose.develop.yml up -d  
+略
+```
+
+コンテナにアクセスし準備する
+```
+$ repository\chousei> docker-compose exec chousei-front sh
+
+/usr/src/app # yarn
+yarn install v1.21.1
+info No lockfile found.
+[1/5] Validating package.json...
+略
+
+/usr/src/app # quasar dev
+```
+もしくはこちらで直接実行する（node_modulesがある前提）
+```
+docker-compose exec chousei-front quasar dev
+```
 ## Front,APIのローカルデバッグ方法
 各ディレクトリのREADMEに書いてあります。
