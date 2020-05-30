@@ -9,13 +9,31 @@
       </template>
     </EvenlyArticle>
     <EvenlyArticle>
-      <template v-slot:head>コート抽選候補日</template>
-      <template v-slot:body>
-        <span v-for="(data, index) in candidateDate" :key="index">
+      <template v-slot:head>
+        コート抽選候補日
+      </template>
+    </EvenlyArticle>
+    <ExpantionItem
+      label="第一候補"
+      :expanded='expandedNo1'
+      v-if="no1CandidateDate"
+    >
+      <template v-slot:expansion-item>
+        <span v-for="(data, index) in no1CandidateDate" :key="index">
           {{formatDate(data.candidate_date)}}
         </span>
       </template>
-    </EvenlyArticle>
+    </ExpantionItem>
+    <ExpantionItem
+      label="第二候補"
+      v-if="no2CandidateDate"
+    >
+      <template v-slot:expansion-item>
+        <span v-for="(data, index) in no2CandidateDate" :key="index">
+          {{formatDate(data.candidate_date)}}
+        </span>
+      </template>
+    </ExpantionItem>
     <EvenlyArticle>
       <template v-slot:head>回答者</template>
       <template v-slot:body>
@@ -39,6 +57,7 @@
 <script>
 import _ from 'lodash';
 import EvenlyArticle from '../layouts/evenly-article';
+import ExpantionItem from '../components/expantion-item';
 import { chouseiApi, authApi } from '../module/api';
 import { getQuaryDate } from '../module/utilityTools';
 
@@ -46,6 +65,7 @@ export default {
   name: 'Top',
   components: {
     EvenlyArticle,
+    ExpantionItem,
   },
   data() {
     return {
@@ -54,6 +74,7 @@ export default {
       candidateDate: Array,
       respondent: Array,
       model: null,
+      expandedNo1: true,
     };
   },
   mounted() {
@@ -115,6 +136,26 @@ export default {
     formatDate: (date) => {
       const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };
       return new Date(date).toLocaleString('ja-JP', options);
+    },
+    /**
+     * 第num候補日のリストを返却する関数
+     * @param num: 第num候補日
+     * @returns 候補日リスト
+     */
+    setCandidateDate: (dateList, num) => {
+      if (!dateList) return [];
+      const cdcList = _.uniq(_.map(dateList, 'candidate_date_count'));
+      num--;
+      return cdcList.length > num
+        ? _.filter(dateList, { candidate_date_count: cdcList[num] }) : null;
+    },
+  },
+  computed: {
+    no1CandidateDate() {
+      return this.setCandidateDate(this.candidateDate, 1);
+    },
+    no2CandidateDate() {
+      return this.setCandidateDate(this.candidateDate, 2);
     },
   },
 };
