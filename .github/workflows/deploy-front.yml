@@ -20,22 +20,23 @@ jobs:
  
     - name: Build and Push
       env:
-        ACCESS_TOKEN:  ${{ secrets.CHOUSEI_FRONT_ACCESS_TOKEN }}
+        ACCESS_TOKEN:  ${{ secrets.FRONT_ACCESS_TOKEN_MASTER }}
+        GITHUB_USERNAME:  btctc-coordinate
         API_URL:  ${{ secrets.API_URL }}
         AUTH_API_URL:  ${{ secrets.AUTH_API_URL }}
       run: |
-        git clone https://x-access-token:${ACCESS_TOKEN}@github.com/Taita-ldt/Taita-ldt.github.io.git
+        git clone https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io.git
         git config --global user.email "chousei@github.io"
         git config --global user.name "chousei"
         sed -i "s|http:\/\/localhost:8080\/api|${API_URL}|" prod.env
         sed -i "s|http:\/\/localhost:3001|${AUTH_API_URL}|" prod.env
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
-        docker cp chousei-front:/usr/share/nginx/html/. ./Taita-ldt.github.io
-        cd Taita-ldt.github.io
+        docker cp chousei-front:/usr/share/nginx/html/. ./${GITHUB_USERNAME}
+        cd ${GITHUB_USERNAME}
         git add .
         git commit -m "Deploy $GITHUB_SHA by GitHub Actions"
-        git push https://x-access-token:${ACCESS_TOKEN}@github.com/Taita-ldt/Taita-ldt.github.io.git master
+        git push https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io.git master
       working-directory: ./front
 
     - name: failure
