@@ -33,7 +33,7 @@ jobs:
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
         docker cp chousei-front:/usr/share/nginx/html/. ./${GITHUB_USERNAME}.github.io
-        cd ${GITHUB_USERNAME}
+        cd ${GITHUB_USERNAME}.github.io
         git add .
         git commit -m "Deploy $GITHUB_SHA by GitHub Actions"
         git push https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io.git master
