@@ -32,7 +32,7 @@ jobs:
         sed -i "s|http:\/\/localhost:3001|${AUTH_API_URL}|" prod.env
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
-        docker cp chousei-front:/usr/share/nginx/html/. ./${GITHUB_USERNAME}
+        docker cp chousei-front:/usr/share/nginx/html/. ./${GITHUB_USERNAME}.github.io
         cd ${GITHUB_USERNAME}
         git add .
         git commit -m "Deploy $GITHUB_SHA by GitHub Actions"
