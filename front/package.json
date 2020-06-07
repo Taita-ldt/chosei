@@ -1,8 +1,8 @@
 {
   "name": "chousei-front",
   "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "description": "BTCTCのポータルサイトです。",
+  "productName": "BTCTCポータル",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "會田 剛巳/ aita tsuyoshi <tsuyoshi.aita@bigtreetc.com>",
