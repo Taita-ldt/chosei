@@ -2,9 +2,11 @@ module.exports = function (app) {
 
   const userController = require('../controllers/user.controller');
   const candidateDateController = require('../controllers/candidateDate.controller');
+  const lotteryStatusController = require('../controllers/lotteryStatus.controller');
   const basePath = '/mng'
   const userAPI = `${basePath}/user`
   const dateAPI = `${basePath}/date`
+  const lotteryStatusAPI = `${basePath}/lotteryStatus`
 
   // userAPI
   app.get(userAPI, userController.getUserList);
@@ -14,4 +16,6 @@ module.exports = function (app) {
   app.get(dateAPI + '/user', candidateDateController.getUserSetDate);
   app.patch(dateAPI + '/:id', candidateDateController.setCandidateDate);
   
+  // lotteryStatusAPI
+  app.get(lotteryStatusAPI + '/:month', lotteryStatusController.getLotteryStatus);
 };
