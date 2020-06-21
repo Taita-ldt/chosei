@@ -51,6 +51,8 @@ module.exports = {
     'prefer-promise-reject-errors': 'off',
     'object-curly-newline': 'off',
     'no-plusplus': 'off',
+    'arrow-parens': 'off',
+    'comma-dangle': 'off',
 
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'

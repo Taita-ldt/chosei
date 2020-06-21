@@ -42,6 +42,19 @@
         </span>
       </template>
     </EvenlyArticle>
+    <EvenlyArticle>
+      <template v-slot:head>抽選状況</template>
+      <template v-slot:body>
+        <div class="q-pa-md">
+          <q-table
+            :data="lotteryStatusData"
+            :columns="lotteryStatusColumns"
+            row-key="name"
+            hide-header
+            hide-bottom/>
+        </div>
+      </template>
+    </EvenlyArticle>
     <!-- <EvenlyArticle>
       <template v-slot:head>集計結果</template>
       <template v-slot:body>
@@ -75,6 +88,8 @@ export default {
       respondent: Array,
       model: null,
       expandedNo1: true,
+      lotteryStatusColumns: [],
+      lotteryStatusData: [],
     };
   },
   mounted() {
@@ -124,7 +139,39 @@ export default {
       const getCandidateDateResponse = await chouseiApi.getCandidateDate(getQuaryDate());
       this.candidateDate = getCandidateDateResponse.date;
       this.respondent = getCandidateDateResponse.user;
+      this.setCandidateTable();
     },
+
+    async setCandidateTable() {
+      const response = await chouseiApi.getLotteryStatus(getQuaryDate());
+      if (!response) return;
+
+      this.lotteryStatusColumns.push({ align: 'center', field: 'row1' });
+      const col1 = { row1: '抽選倍率 - 日比谷公園' };
+      const col2 = { row1: '17:00' };
+      const col3 = { row1: '19:00' };
+
+      const dateList = _.uniq(_.map(response.lotteryStatus, 'candidate_date'));
+      dateList.forEach(
+        date => {
+          // 時間を引数に抽選状況のリストを返す関数
+          const getStatus = (time) => response.lotteryStatus.find(
+            res => res.candidate_time === time && date === res.candidate_date
+          ).lottery_status;
+          // 列定義を設定
+          const rowDef = { align: 'center', field: `row${date}` };
+          // 第一候補日をハイライト
+          if (this.no1CandidateDate.some(e => e.candidate_date === date)) rowDef.classes = 'bg-yellow-3';
+          this.lotteryStatusColumns.push(rowDef);
+
+          col1[`row${date}`] = this.formatDate(date);
+          col2[`row${date}`] = getStatus('17');
+          col3[`row${date}`] = getStatus('19');
+        }
+      );
+      this.lotteryStatusData.push(col1, col2, col3);
+    },
+
     toChousei() {
       const userdata = _.find(this.getUserResponse, (user) => _.includes(user.name, this.model));
       this.$store.commit('user/updateUserData', userdata);
