@@ -44,17 +44,15 @@
     </EvenlyArticle>
     <EvenlyArticle>
       <template v-slot:head>抽選状況</template>
-      <template v-slot:body>
-        <div class="q-pa-md">
-          <q-table
-            :data="lotteryStatusData"
-            :columns="lotteryStatusColumns"
-            row-key="name"
-            hide-header
-            hide-bottom/>
-        </div>
-      </template>
     </EvenlyArticle>
+    <div class="q-pa-md">
+      <q-table
+        :data="lotteryStatusData"
+        :columns="lotteryStatusColumns"
+        row-key="name"
+        hide-header
+        hide-bottom/>
+    </div>
     <!-- <EvenlyArticle>
       <template v-slot:head>集計結果</template>
       <template v-slot:body>
