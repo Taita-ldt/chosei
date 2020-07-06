@@ -76,7 +76,7 @@ module.exports = {
         },
       ],
       order: [
-        ['id', 'asc'],
+        ['candidate_date', 'asc'],
       ]
     })
   }
