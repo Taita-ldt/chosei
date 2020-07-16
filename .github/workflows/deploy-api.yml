@@ -6,9 +6,11 @@ on:
       - master
     paths:
       - 'api/**'
- 
+    tags:
+      - deploy_api*
+
 jobs:
-  build:
+  main:
  
     runs-on: ubuntu-18.04
     timeout-minutes: 300
@@ -34,15 +36,11 @@ jobs:
 
     - name: failure
       if: failure()
-      uses: pullreminders/slack-action@master
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      with:
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":sleeping_accommodation:APIデプロイ失敗:sleeping_accommodation:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\"}'
+      run: |
+        echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ失敗(${{ github.event.head_commit.message }})"}' |
+        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
 
     - name: success
-      uses: pullreminders/slack-action@master
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      with:
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":person_doing_cartwheel:APIデプロイ成功:person_doing_cartwheel:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\nhttps://taita-ldt.github.io/#/\"}'
+      run: |
+        echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ成功(${{ github.event.head_commit.message }})"}' |
+        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}

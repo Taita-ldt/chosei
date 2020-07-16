@@ -10,48 +10,50 @@ on:
       - deploy_front*
  
 jobs:
-  build:
- 
+  main:
     runs-on: ubuntu-18.04
     timeout-minutes: 300
- 
+    defaults:
+      run:
+        working-directory: ./front
+    env:
+      TEAMS_URL: ${{ secrets.TEAMS_URL }}
+      ACCESS_TOKEN:  ${{ secrets.FRONT_ACCESS_TOKEN_MASTER }}
+      GITHUB_USERNAME:  btctc-coordinate 
     steps:
-    - uses: actions/checkout@v1    
- 
-    - name: Build and Push
-      env:
-        ACCESS_TOKEN:  ${{ secrets.FRONT_ACCESS_TOKEN_MASTER }}
-        GITHUB_USERNAME:  btctc-coordinate
-        API_URL:  ${{ secrets.API_URL }}
-        AUTH_API_URL:  ${{ secrets.AUTH_API_URL }}
+    - uses: actions/checkout@v1
+
+    - name: git pull
       run: |
         git clone https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io.git
         git config --global user.email "chousei@github.io"
         git config --global user.name "chousei"
+
+    - name: build
+      env:
+        API_URL:  ${{ secrets.API_URL }}
+        AUTH_API_URL:  ${{ secrets.AUTH_API_URL }}
+      run: |
         sed -i "s|http:\/\/localhost:8080\/api|${API_URL}|" prod.env
         sed -i "s|http:\/\/localhost:3001|${AUTH_API_URL}|" prod.env
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
+
+    - name: deploy
+      run: |
         docker cp chousei-front:/usr/share/nginx/html/. ./${GITHUB_USERNAME}.github.io
         cd ${GITHUB_USERNAME}.github.io
         git add .
         git commit -m "Deploy $GITHUB_SHA by GitHub Actions"
         git push https://x-access-token:${ACCESS_TOKEN}@github.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}.github.io.git master
-      working-directory: ./front
 
     - name: failure
       if: failure()
-      uses: pullreminders/slack-action@master
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      with:
-        # "channel"にSlackチャンネルIDを代入
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":sleeping_accommodation:フロントデプロイ失敗:sleeping_accommodation:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\"}'
+      run: |
+        echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "フロントデプロイ失敗(${{ github.event.head_commit.message }})"}' |
+        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
 
     - name: success
-      uses: pullreminders/slack-action@master
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      with:
-        # "channel"にSlackチャンネルIDを代入
-        args: '{\"channel\":\"C010ZGUAGG5\", \"text\":\":person_doing_cartwheel:フロントデプロイ成功:person_doing_cartwheel:\nhttps://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}\nhttps://taita-ldt.github.io/#/\"}'
+      run: |
+        echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "フロントデプロイ成功(${{ github.event.head_commit.message }})"}' |
+        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
