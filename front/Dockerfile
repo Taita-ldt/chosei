@@ -12,7 +12,7 @@ RUN quasar build
 
 # 本番環境
 FROM nginx:stable-alpine as production-stage
-# COPY --from=build-stage /app/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build-stage /app/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-stage /app/dist/spa /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

@@ -15,11 +15,11 @@ services:
     ports:
       - 15432:5432
 
-  chousei-api:
+  chousei-api-dev:
     build: 
       context: ./api
       dockerfile: Dockerfile_api_dev
-    image: chousei-api
+    image: chousei-api-dev
     container_name: chousei-api-dev
     environment:
       NODE_ENV: development
@@ -34,12 +34,13 @@ services:
     tty: true
     command: /bin/sh
 
-  chousei-front:
+  chousei-front-dev:
     build: 
       context: ./front
       dockerfile: Dockerfile_front_dev
+    image: chousei-front-dev
     container_name: chousei-front-dev
-    hostname: "chouseiFront"
+    hostname: "chousei-front"
     ports:
       - "8081:8081"
     volumes:

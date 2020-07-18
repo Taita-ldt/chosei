@@ -13,7 +13,7 @@ $ repository\chousei> docker-compose -f docker-compose.develop.yml up -d
 ### Front
 コンテナにアクセスし準備する
 ```
-$ repository\chousei> docker-compose exec chousei-front sh
+$ repository\chousei> docker-compose -f docker-compose.develop.yml exec chousei-front sh
 
 /usr/src/app # yarn
 yarn install v1.21.1
@@ -25,12 +25,12 @@ info No lockfile found.
 ```
 もしくはこちらで直接実行する（node_modulesがある前提）
 ```
-docker-compose exec chousei-front quasar dev
+docker-compose -f docker-compose.develop.yml exec chousei-front quasar dev
 ```
 ### Api
 コンテナにアクセスし準備する
 ```
-$ repository\chousei> docker-compose exec chousei-api sh
+$ repository\chousei> docker-compose -f docker-compose.develop.yml exec chousei-api sh
 
 /usr/src/app # yarn
 yarn install v1.21.1
@@ -42,7 +42,7 @@ info No lockfile found.
 ```
 もしくはこちらで直接実行する（node_modulesがある前提）
 ```
-docker-compose exec chousei-api nodemon index.js
+docker-compose -f docker-compose.develop.yml exec chousei-api nodemon index.js
 ```
 
 ## アプリが動作している状態でコンテナが起動する

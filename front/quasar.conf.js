@@ -85,6 +85,7 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       port: 8081,
+      open: false
     },
 
     // animations: 'all', // --- includes all animations

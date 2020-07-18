@@ -20,7 +20,7 @@ services:
     image: chousei-api
     container_name: chousei-api
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
     hostname: "chousei-api"
     ports:
       - "3000:3000"
