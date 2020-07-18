@@ -1,3 +1,10 @@
+## Node.js
+[インストール](https://paper.dropbox.com/doc/Node.jsVue--AvqWG0JbiMEd1aLQc~FqYGFWAg-zJQ5kktH0KQZUJwTc1Sir)
+```
+$ node -v
+v12.1.0
+```
+
 ## Install the dependencies
 ```
 $ yarn

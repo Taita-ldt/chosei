@@ -2,6 +2,36 @@
 
 A Quasar Framework app
 
+### Node.js
+[インストール](https://paper.dropbox.com/doc/Node.jsVue--AvqWG0JbiMEd1aLQc~FqYGFWAg-zJQ5kktH0KQZUJwTc1Sir)
+```
+$ node -v
+v12.1.0
+```
+### Yarn
+Nodeのパッケージマネージャー。npmの親戚。npmを絶対使いたいという人はYarnをインストールする必要はないです。
+インストール方法は色々あります。  
+https://classic.yarnpkg.com/ja/docs/install#alternatives-stable  
+
+おすすめは[chocolaty](https://qiita.com/NaoyaOura/items/1081884068fe3ea79570)でインストールする方法です。yarnコマンドを使用するのにPATHを通す必要がない分楽です。
+```
+choco install yarn -y
+```
+
+### Vue.js
+```
+$ yarn global add @vue/cli 4.2.2
+$ vue -V
+@vue/cli 4.2.2
+```
+
+### Quasar
+```
+$ yarn global add @quasar/cli@1.0.5
+$ quasar -v
+1.0.5
+```
+
 ## Install the dependencies
 ```bash
 yarn
@@ -25,7 +55,7 @@ quasar build
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 
-## 命名規則
+## ファイル命名規則
 | 名前 | 書き方 |
 | --- | --- |
 | .vueファイル | ケバブケース |
