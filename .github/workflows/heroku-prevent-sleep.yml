@@ -5,10 +5,10 @@ on:
     - cron:  '*/25 * 1-10 * *'
  
 jobs:
-  build:
+  main:
  
     runs-on: ubuntu-18.04
-    timeout-minutes: 300
+    timeout-minutes: 600
  
     steps:
     - uses: actions/checkout@v1    
@@ -17,3 +17,9 @@ jobs:
         API_URL:  ${{ secrets.API_URL }}
       run: |
         curl -H 'Content-type: application/json' ${API_URL}/mng/user
+
+    - name: failure
+      if: failure()
+      run: |
+        echo '{"text": "API動いてないかも、、、"}' |
+        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
