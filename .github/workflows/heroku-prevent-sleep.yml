@@ -16,4 +16,4 @@ jobs:
       env:
         API_URL:  ${{ secrets.API_URL }}
       run: |
-        curl -H 'Content-type: application/json' ${API_URL}
+        curl -H 'Content-type: application/json' ${API_URL}/mng/user
