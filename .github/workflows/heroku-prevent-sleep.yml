@@ -1,0 +1,19 @@
+name: Heroku Prevent Sleep
+ 
+on:
+  schedule:
+    - cron:  '*/25 * 1-10 * *'
+ 
+jobs:
+  build:
+ 
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+ 
+    steps:
+    - uses: actions/checkout@v1    
+    - name: Heroku Access
+      env:
+        API_URL:  ${{ secrets.API_URL }}
+      run: |
+        curl -H 'Content-type: application/json' ${API_URL}
