@@ -2,7 +2,9 @@
 module.exports = (sequelize, DataTypes) => {
   const candidate_date = sequelize.define('candidate_date', {
     candidate_month: DataTypes.STRING,
-    candidate_date: DataTypes.DATE
+    candidate_date: DataTypes.DATE,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
     underscored: true,
     freezeTableName: true,
