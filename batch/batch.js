@@ -12,7 +12,7 @@ const moment = require('moment');
   try {
     await batch[process.argv[2]].doProcess();
   } catch (e) {
-    logger.error('Something went wrong with the operation: ' + err);
+    logger.error('Something went wrong with the operation: ' + e);
   }
 
   logger.info("*********************************************");
