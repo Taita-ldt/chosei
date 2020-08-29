@@ -48,3 +48,20 @@ services:
     stdin_open: true
     tty: true
     command: /bin/sh
+
+  chousei-batch-dev:
+    build: 
+      context: ./batch
+      dockerfile: Dockerfile_batch_dev
+    image: chousei-batch-dev
+    container_name: chousei-batch-dev
+    environment:
+      NODE_ENV: development
+    hostname: "chousei-batch"
+    depends_on:
+      - chousei-db
+    volumes:
+      - ./batch:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: /bin/sh

@@ -36,3 +36,13 @@ services:
       - "8080:8080"
     depends_on:
       - chousei-api
+
+  chousei-batch:
+    build: ./batch
+    image: chousei-batch
+    container_name: chousei-batch
+    environment:
+      NODE_ENV: development
+    hostname: "chousei-batch"
+    depends_on:
+      - chousei-db

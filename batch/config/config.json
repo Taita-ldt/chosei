@@ -1,6 +1,6 @@
 {
   "development": {
-    "url": "postgres://chousei:chousei@localhost:15432/chousei",
+    "url": "postgres://chousei:chousei@chousei-db:5432/chousei",
     "loggerLevel": "debug"
   },
   "production": {
