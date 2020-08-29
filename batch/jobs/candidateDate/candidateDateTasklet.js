@@ -2,30 +2,39 @@ const appRoot = require('app-root-path');
 const db = require(appRoot + '/models/index.js');
 const logger = require(appRoot + '/config/logger.js');
 const candidateDate = db.candidate_date;
+const moment = require('moment');
+const axiosBase = require('axios');
+const axios = axiosBase.create({
+  baseURL: 'https://holidays-jp.github.io/api/v1',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  responseType: 'json'
+});
 
 module.exports = {
   async setCandidateDate() {
 
     logger.debug("test");
     const monthDate = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1) % 12;
+    const nextMonth = moment().add(1, 'months');
+    const year = nextMonth.year();
+    const month = (nextMonth.month()) % 12;
     const isLeapYear = y => y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0);
-    const isSatOrSun = d => d.getDay() == 0 || d.getDay() == 6;
-    // TODO 祝日判定
-    const isHoriday = d => true;
+    const isSatOrSun = d => d.day() == 0 || d.day() == 6;
+    const horiday = await axios.get(`/${year}/date.json`)
+    const isHoriday = date => horiday.data[date.format("YYYY-MM-DD")];
     
-    const fill_0 = num => num < 10 ? `0${num}` : `${num}`
-    const candidate_month = `${year}${fill_0(month + 1)}`;
+    const candidate_month = nextMonth.format("YYYYMM");
 
     // 月日Insertメソッド
     const setDate = (month, date) => candidateDate.create(
       {
         candidate_month: month,
         candidate_date: date,
-        created_at: now,
-        updated_at: now,
+        created_at: moment(),
+        updated_at: moment(),
       }
     );
 
@@ -34,8 +43,8 @@ module.exports = {
     try {
       let date = '';
       for (let day = 1; day <= monthDate[month]; day++){
-        date = new Date(year, month, day);
-        if (isSatOrSun(date) || isHoriday(date)) await setDate(candidate_month, date);
+        date = moment([year, month, day]);
+        if (isSatOrSun(date) || isHoriday(date)) await setDate(candidate_month, date.local().format());
       }
     } catch (error) {
       throw (error);
