@@ -14,9 +14,7 @@ const axios = axiosBase.create({
 });
 
 module.exports = {
-  async setCandidateDate() {
-
-    logger.debug("test");
+  async doProcess() {
     const monthDate = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     const nextMonth = moment().add(1, 'months');
     const year = nextMonth.year();
