@@ -21,20 +21,21 @@ module.exports = {
     const nextMonth = moment().add(1, 'months');
     const year = nextMonth.year();
     const month = (nextMonth.month()) % 12;
-    const isLeapYear = y => y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0);
-    const isSatOrSun = d => d.day() == 0 || d.day() == 6;
-    const horiday = await axios.get(`/${year}/date.json`)
-    const isHoriday = date => horiday.data[date.format("YYYY-MM-DD")];
-    
-    const candidate_month = nextMonth.format("YYYYMM");
+    const horiday = await axios.get(`/${year}/date.json`);
 
+    // うるう年判定
+    const isLeapYear = y => y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0);
+    // 土日判定
+    const isSatOrSun = d => d.day() == 0 || d.day() == 6;
+    // 祝日判定
+    const isHoriday = date => horiday.data[date.format("YYYY-MM-DD")] !== void 0;
     // 月日Insertメソッド
     const setDate = (month, date) => candidateDate.create(
       {
         candidate_month: month,
         candidate_date: date,
-        created_at: moment(),
-        updated_at: moment(),
+        created_at: new Date(),
+        updated_at: new Date(),
       }
     );
 
@@ -42,9 +43,15 @@ module.exports = {
 
     try {
       let date = '';
+      let candidate_month = '';
+      let candidate_date = '';
       for (let day = 1; day <= monthDate[month]; day++){
         date = moment([year, month, day]);
-        if (isSatOrSun(date) || isHoriday(date)) await setDate(candidate_month, date.local().format());
+        if (isSatOrSun(date) || isHoriday(date)) {
+          candidate_month = nextMonth.format("YYYYMM");
+          candidate_date = date.tz("Asia/Tokyo").format("YYYY-MM-DD");
+          await setDate(candidate_month, candidate_date);
+        }
       }
     } catch (error) {
       throw (error);
