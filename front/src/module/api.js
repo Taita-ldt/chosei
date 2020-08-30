@@ -76,6 +76,7 @@ export const chouseiApi = {
   getCandidateDate: (month) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/month/${month}`).then((d) => Api.toJson(d)),
   patchCandidateDateStatus: (id, data) => Api.fetchPatch(`${API_CONFIG.BASE_URL}/date/${id}`, data),
   getLotteryStatus: (month) => Api.fetchGet(`${API_CONFIG.BASE_URL}/lotteryStatus/${month}`).then((d) => Api.toJson(d)),
+  getApplicationDate: (month) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/applicationDate/${month}`).then((d) => Api.toJson(d)),
 };
 
 export const authApi = {

@@ -53,14 +53,20 @@
         hide-header
         hide-bottom/>
     </div>
-    <!-- <EvenlyArticle>
+    <EvenlyArticle>
       <template v-slot:head>集計結果</template>
+    </EvenlyArticle>
+    <EvenlyArticle>
       <template v-slot:body>
-        <div>
-          <q-btn color="primary" @click="toResult" label="確認する"/>
+        <div  class="q-pa-md">
+          <q-table
+            :data="applicationDateData"
+            :columns="applicationDateColumns"
+            row-key="name"
+            hide-bottom/>
         </div>
       </template>
-    </EvenlyArticle> -->
+    </EvenlyArticle>
   </q-page>
 
 </template>
@@ -88,6 +94,12 @@ export default {
       expandedNo1: true,
       lotteryStatusColumns: [],
       lotteryStatusData: [],
+      // TODO カラム定義の記述場所を変更
+      applicationDateColumns: [
+        { name: 'applicationDate', label: '応募日', field: 'applicationDate', sortable: true },
+        { name: 'magnification', label: '倍率', field: 'magnification', sortable: true }
+      ],
+      applicationDateData: []
     };
   },
   mounted() {
@@ -138,6 +150,8 @@ export default {
       this.candidateDate = getCandidateDateResponse.date;
       this.respondent = getCandidateDateResponse.user;
       this.setCandidateTable();
+      console.log('here');
+      this.setApplicationTable();
     },
 
     async setCandidateTable() {
@@ -175,8 +189,26 @@ export default {
       this.$store.commit('user/updateUserData', userdata);
       this.$router.push({ path: 'user', query: userdata });
     },
-    toResult() {
-      console.log('集計結果画面');
+    // 上位2つの応募日とその倍率を取得し画面のテーブルに表示
+    async setApplicationTable() {
+      const applicationDateResponse = await chouseiApi.getApplicationDate(getQuaryDate());
+      console.log(applicationDateResponse);
+      if (!applicationDateResponse) return;
+      applicationDateResponse.forEach(
+        row => {
+          // TODO 日付のフォーマット変更
+          // const application_date = row.application_date;
+          // const magnification = row.magnification;
+          const data = { applicationDate: row.application_date, magnification: row.magnification };
+          this.applicationDateData.push(data);
+          console.log(this.applicationDateData);
+        }
+      );
+      // return [
+      //   { id: '1', applicationDate: '8/10', magnification: '90/100' },
+      //   { id: '2', applicationDate: '8/11', magnification: '50/100' },
+      //   { id: '3', applicationDate: '8/12', magnification: '10/100' }
+      // ];
     },
     formatDate: (date) => {
       const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };
