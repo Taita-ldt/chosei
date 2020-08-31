@@ -94,7 +94,7 @@ export default {
       expandedNo1: true,
       lotteryStatusColumns: [],
       lotteryStatusData: [],
-      // TODO カラム定義の記述場所を変更
+      // TODO カラム定義の記述場所をMethodsに移動
       applicationDateColumns: [
         { name: 'applicationDate', label: '応募日', field: 'applicationDate', sortable: true },
         { name: 'magnification', label: '倍率', field: 'magnification', sortable: true }
@@ -201,14 +201,8 @@ export default {
           // const magnification = row.magnification;
           const data = { applicationDate: row.application_date, magnification: row.magnification };
           this.applicationDateData.push(data);
-          console.log(this.applicationDateData);
         }
       );
-      // return [
-      //   { id: '1', applicationDate: '8/10', magnification: '90/100' },
-      //   { id: '2', applicationDate: '8/11', magnification: '50/100' },
-      //   { id: '3', applicationDate: '8/12', magnification: '10/100' }
-      // ];
     },
     formatDate: (date) => {
       const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };

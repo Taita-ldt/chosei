@@ -7,7 +7,6 @@ module.exports = {
      * @param {string} month - 'YYYYMM'の形式で年月を指定する。
      */
     getApplicationDate(month) {
-      console.log("repo")
       return db.sequelize.query(
         'SELECT '
         + 'T4.candidate_time_from AS application_date, '
