@@ -4,7 +4,7 @@
       <template v-slot:head>{{userName}}さん スケジュール入力</template>
       <template v-slot:body>
         <date-select-form
-          :datalist='candidateDates'
+          :datalist='candidateDates.data'
           @parentMethod="updateMessage"
         />
       </template>
@@ -53,7 +53,7 @@ export default {
       this.$router.push('/');
     },
     getPatchData() {
-      const localCandidateDates = this.candidateDates;
+      const localCandidateDates = this.candidateDates.data;
       const getStatusIds = function (status) {
         return _.map(localCandidateDates.filter((o) => o['candidate_date_statuses.status'] === status), 'candidate_date_statuses.id');
       };
