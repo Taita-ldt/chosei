@@ -3,14 +3,13 @@ const db = require(appRoot + '/models/index.js');
 
 module.exports = {
     /**
-     * 指定した月の応募日と倍率のデータを返す。
+     * 指定した月の上位2日の応募日を返す。
      * @param {string} month - 'YYYYMM'の形式で年月を指定する。
      */
     getApplicationDate(month) {
       return db.sequelize.query(
         'SELECT '
-        + 'T4.candidate_time_from AS application_date, '
-        + 'T4.lottery_status AS magnification '
+        + 'T4.candidate_time_from AS application_date '
         + 'FROM '
         + '('
         + 'SELECT '
@@ -19,7 +18,6 @@ module.exports = {
         + 'T3.candidate_time_from, '
         + 'count(T2.status) AS status_count, '
         + 'sum(T2.status) AS status_sum, '
-        + 'T3.lottery_status, '
         + 'T3.lottery_status_magnification '
         + 'FROM '
         + 'candidate_date AS T1 '
@@ -37,7 +35,6 @@ module.exports = {
         + 'T1.id, '
         + 'T1.candidate_date, '
         + 'T3.candidate_time_from, '
-        + 'T3.lottery_status, '
         + 'T3.lottery_status_magnification '
         + ') AS T4 '
         + 'ORDER BY '

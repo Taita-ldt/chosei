@@ -3,11 +3,11 @@ const getApplicationDateRepository = require(appRoot + '/repository/getApplicati
 
 module.exports = {
   /**
-   * 指定した月の上位2日の応募日と倍率を返す。
+   * 指定した月の上位2日の応募日を返す。
    * @param {string} month - 'YYYYMM'の形式で年月を指定する。
    */
   async getApplicationDate(month) {
-    const result = await getApplicationDateRepository.getApplicationDate(month);
-    return result[0];      
+    const applicationDate = await getApplicationDateRepository.getApplicationDate(month);
+    return {"applicationDate" :applicationDate[0]};      
   },
 }
