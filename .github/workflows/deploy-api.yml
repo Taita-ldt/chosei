@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'api/**'
+      - '!api/swagger/**'
     tags:
       - deploy_api*
 
