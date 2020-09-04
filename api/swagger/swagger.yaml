@@ -1,0 +1,79 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Chousei API"
+  description: "Get Application Date API in Tennnis Chousei App"
+host: "localhost:3000"
+basePath: "/mng"
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+paths:
+  /date/applicationDate/{month}:
+    get:
+      tags:
+      - Get Application Date
+      operationId: getApplicationDate
+      summary: 指定した月の上位2日の応募日を返す。
+      parameters:
+      - name: "month"
+        in: "path"
+        required: true
+        type: "string"
+        description: YYYYMM形式で抽選対象月をパラメータに設定する。 ex). 202010
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/LotteryStatus'
+  /date/user:
+    get:
+      tags:
+      - Get User Set Date
+      operationId: getApplicationDatea
+      summary: 指定した月の候補日を返す。ユーザIDを指定した場合、候補日ステータスも返す。
+      parameters:
+      - name: "month"
+        in: "query"
+        required: true
+        type: "string"
+        description: YYYYMM形式で抽選対象月をパラメータに設定する。 ex). 202010
+      - name: "user"
+        in: "query"
+        required: false
+        type: "string"
+        description: ユーザIDをパラメータに設定する。 ex). 1
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/UserSetDate'
+##################################
+# Models
+##################################
+definitions:
+  LotteryStatus:
+    type: object
+    properties:
+      candidate_time_from:
+        type: array
+        items:
+          type: object
+          items:
+            type: string
+        example: [{applicationDate: "2020-10-15T07:00:00.000Z"}, {applicationDate: "2020-10-16T5:00:00.000Z"}]
+        description: 配列の0番目の日付が第1抽選,1番目の日付が第2抽選日。日付はUTC。
+  UserSetDate:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+          items:
+            type: string
+        example: [{"id": 1,"candidate_date": "2020-03-01T00:00:00.000Z","candidate_date_statuses.id": 1,"candidate_date_statuses.status": 1},{"id": 2,"candidate_date": "2020-03-07T00:00:00.000Z","candidate_date_statuses.id": 2,"candidate_date_statuses.status": 1},{"id": 3,"candidate_date": "2020-03-08T00:00:00.000Z","candidate_date_statuses.id": 4,"candidate_date_statuses.status": 1}]
+        description: id=候補日ID, candidate_date=候補日, candidate_date_statuses.id=候補日ステータスID, candidate_date_statuses.status=候補日ステータス
