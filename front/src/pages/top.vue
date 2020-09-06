@@ -54,17 +54,11 @@
         hide-bottom/>
     </div>
     <EvenlyArticle>
-      <template v-slot:head>集計結果</template>
-    </EvenlyArticle>
-    <EvenlyArticle>
+      <template v-slot:head>応募日</template>
       <template v-slot:body>
-        <div  class="q-pa-md">
-          <q-table
-            :data="applicationDateData"
-            :columns="applicationDateColumns"
-            row-key="name"
-            hide-bottom/>
-        </div>
+        <span v-for="(data, index) in applicationDateData" :key="index">
+          {{data.applicationDate}}
+        </span>
       </template>
     </EvenlyArticle>
   </q-page>
@@ -94,11 +88,6 @@ export default {
       expandedNo1: true,
       lotteryStatusColumns: [],
       lotteryStatusData: [],
-      // TODO カラム定義の記述場所をMethodsに移動
-      applicationDateColumns: [
-        { name: 'applicationDate', label: '応募日', field: 'applicationDate', sortable: true },
-        { name: 'magnification', label: '倍率', field: 'magnification', sortable: true }
-      ],
       applicationDateData: []
     };
   },
@@ -150,12 +139,12 @@ export default {
       this.candidateDate = getCandidateDateResponse.date;
       this.respondent = getCandidateDateResponse.user;
       this.setCandidateTable();
-      console.log('here');
-      this.setApplicationTable();
+      this.setApplicationDateData();
     },
 
     async setCandidateTable() {
       const response = await chouseiApi.getLotteryStatus(getQuaryDate());
+      console.log(response);
       if (!response) return;
 
       this.lotteryStatusColumns.push({ align: 'center', field: 'row1' });
@@ -189,17 +178,23 @@ export default {
       this.$store.commit('user/updateUserData', userdata);
       this.$router.push({ path: 'user', query: userdata });
     },
-    // 上位2つの応募日とその倍率を取得し画面のテーブルに表示
-    async setApplicationTable() {
+    /**
+     * 上位2つの応募日を取得し返却する
+     */
+    async setApplicationDateData() {
       const applicationDateResponse = await chouseiApi.getApplicationDate(getQuaryDate());
-      console.log(applicationDateResponse);
       if (!applicationDateResponse) return;
-      applicationDateResponse.forEach(
-        row => {
-          // TODO 日付のフォーマット変更
-          // const application_date = row.application_date;
-          // const magnification = row.magnification;
-          const data = { applicationDate: row.application_date, magnification: row.magnification };
+
+      const applicationDatelist = applicationDateResponse.applicationDate;
+      const applicationDateOptions = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' };
+
+      // 画面表示用に取得した応募日を加工
+      applicationDatelist.forEach(
+        dateObj => {
+          const from = new Date(dateObj.application_date_from).toLocaleString('ja-JP', applicationDateOptions);
+          const to = new Date(dateObj.application_date_to).toLocaleString('ja-JP', applicationDateOptions);
+          const dateArrJp = _.uniq(_.flatten([from.split(' '), to.split(' ')]));
+          const data = { applicationDate: `${dateArrJp[0]} ${dateArrJp[1]} ~ ${dateArrJp[2]}` };
           this.applicationDateData.push(data);
         }
       );
