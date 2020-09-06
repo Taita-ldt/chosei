@@ -7,7 +7,14 @@ module.exports = {
    * @param {string} month - 'YYYYMM'の形式で年月を指定する。
    */
   async getApplicationDate(month) {
+    res = [];
     const applicationDate = await getApplicationDateRepository.getApplicationDate(month);
-    return {"applicationDate" :applicationDate[0]};      
+    applicationDate[0].forEach(
+      row => {
+        const date  = {application_date_from: row.application_date_from, application_date_to: row.application_date_to};
+        res.push(date);
+      }
+    );
+    return ({"applicationDate" :res});      
   },
 }
