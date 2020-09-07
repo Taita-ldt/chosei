@@ -44,6 +44,8 @@ info No lockfile found.
 ```
 docker-compose -f docker-compose.develop.yml exec chousei-api nodemon index.js
 ```
+API仕様  
+http://localhost
 
 ## アプリが動作している状態でコンテナが起動する
 コンテナをdocker-compose.ymlで立ち上げる

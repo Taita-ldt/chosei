@@ -1,0 +1,9 @@
+{
+  "development": {
+    "url": "postgres://chousei:chousei@chousei-db:5432/chousei",
+    "loggerLevel": "debug"
+  },
+  "production": {
+    "loggerLevel": "info"
+  }
+}

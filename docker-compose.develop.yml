@@ -48,3 +48,33 @@ services:
     stdin_open: true
     tty: true
     command: /bin/sh
+
+  chousei-batch-dev:
+    build: 
+      context: ./batch
+      dockerfile: Dockerfile_batch_dev
+    image: chousei-batch-dev
+    container_name: chousei-batch-dev
+    environment:
+      NODE_ENV: development
+    hostname: "chousei-batch"
+    depends_on:
+      - chousei-db
+    volumes:
+      - ./batch:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: /bin/sh
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger
+    environment:
+      NODE_ENV: development
+      API_URL: api/swagger.yaml
+    ports:
+      - "80:8080"
+    volumes:
+      - ./api/swagger:/usr/share/nginx/html/api
+    stdin_open: true
+    tty: true

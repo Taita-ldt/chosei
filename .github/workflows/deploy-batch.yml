@@ -1,14 +1,13 @@
-name: Deploy api
+name: Deploy batch
  
 on:
   push:
     branches:
       - master
     paths:
-      - 'api/**'
-      - '!api/swagger/**'
+      - 'batch/**'
     tags:
-      - deploy_api*
+      - deploy_batch*
 
 jobs:
   main:
@@ -27,21 +26,21 @@ jobs:
     - name: Build and push
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web 
-      working-directory: ./api
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME_BATCH }} web 
+      working-directory: ./batch
 
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME_BATCH }} web 
 
     - name: failure
       if: failure()
       run: |
-        echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ失敗(${{ github.event.head_commit.message }})"}' |
+        echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "BATCHデプロイ失敗(${{ github.event.head_commit.message }})"}' |
         curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
 
     - name: success
       run: |
-        echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ成功(${{ github.event.head_commit.message }})"}' |
+        echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "BATCHデプロイ成功(${{ github.event.head_commit.message }})"}' |
         curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
