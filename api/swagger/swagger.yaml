@@ -58,14 +58,14 @@ definitions:
   LotteryStatus:
     type: object
     properties:
-      candidate_time_from:
+      applicationDate:
         type: array
         items:
           type: object
           items:
             type: string
-        example: [{applicationDate: "2020-10-15T07:00:00.000Z"}, {applicationDate: "2020-10-16T5:00:00.000Z"}]
-        description: 配列の0番目の日付が第1抽選,1番目の日付が第2抽選日。日付はUTC。
+        example: [ { application_date_from: "2020-10-15T07:00:00.000Z", application_date_to: "2020-10-15T10:00:00.000Z" }, { application_date_from: "2020-10-16T010:00:00.000Z", application_date_to: "2020-10-16T12:00:00.000Z" } ]
+        description: 配列の0番目の日付が第1抽選日,1番目の日付が第2抽選日。配列要素には開始日・終了日を格納。日付はUTC。
   UserSetDate:
     type: object
     properties:

@@ -15,6 +15,7 @@ module.exports = function (app) {
   app.get(dateAPI + '/month/:month', candidateDateController.getCandidateDate);
   app.get(dateAPI + '/user', candidateDateController.getUserSetDate);
   app.patch(dateAPI + '/:id', candidateDateController.setCandidateDate);
+  app.get(dateAPI + '/applicationDate/:month', candidateDateController.getApplicationDate);
   
   // lotteryStatusAPI
   app.get(lotteryStatusAPI + '/:month', lotteryStatusController.getLotteryStatus);

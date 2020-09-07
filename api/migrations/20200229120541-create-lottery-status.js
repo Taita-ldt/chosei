@@ -11,8 +11,17 @@ module.exports = {
       candidate_date_id: {
         type: Sequelize.INTEGER
       },
+      candidate_time_from: {
+        type: Sequelize.DATE
+      },
+      candidate_time_to: {
+        type: Sequelize.DATE
+      },
       lottery_status: {
         type: Sequelize.STRING
+      },
+      lottery_status_magnification: {
+        type: Sequelize.DOUBLE
       },
       created_at: {
         allowNull: false,

@@ -2,6 +2,7 @@ const appRoot = require('app-root-path');
 const getCandidateDateService = require(appRoot + '/service/candidateDate/getCandidateDate');
 const getUserSetDateService = require(appRoot + '/service/candidateDate/getUserSetDate');
 const setCandidateDateService = require(appRoot + '/service/candidateDate/setCandidateDate');
+const getApplicationDateService = require(appRoot + '/service/candidateDate/getApplicationDate');
 const logger = require(appRoot + '/config/logger.js');
 
 module.exports = {
@@ -40,4 +41,16 @@ module.exports = {
       logger.info('End getCandidateDateAPI');
     }
   },
+
+  async getApplicationDate(req, res) {
+    logger.info('Start getApplicationDateAPI');
+    try {
+      const response = await getApplicationDateService.getApplicationDate(req.params.month);
+      res.status(200).send(response);
+    } catch (error) {
+      throw (error);
+    } finally {
+      logger.info('End getApplicationDateAPI');
+    }
+  }
 }

@@ -53,14 +53,14 @@
         hide-header
         hide-bottom/>
     </div>
-    <!-- <EvenlyArticle>
-      <template v-slot:head>集計結果</template>
+    <EvenlyArticle>
+      <template v-slot:head>応募日</template>
       <template v-slot:body>
-        <div>
-          <q-btn color="primary" @click="toResult" label="確認する"/>
-        </div>
+        <span v-for="(data, index) in applicationDateData" :key="index">
+          {{data.applicationDate}}
+        </span>
       </template>
-    </EvenlyArticle> -->
+    </EvenlyArticle>
   </q-page>
 
 </template>
@@ -88,6 +88,7 @@ export default {
       expandedNo1: true,
       lotteryStatusColumns: [],
       lotteryStatusData: [],
+      applicationDateData: []
     };
   },
   mounted() {
@@ -138,10 +139,12 @@ export default {
       this.candidateDate = getCandidateDateResponse.date;
       this.respondent = getCandidateDateResponse.user;
       this.setCandidateTable();
+      this.setApplicationDateData();
     },
 
     async setCandidateTable() {
       const response = await chouseiApi.getLotteryStatus(getQuaryDate());
+      console.log(response);
       if (!response) return;
 
       this.lotteryStatusColumns.push({ align: 'center', field: 'row1' });
@@ -175,8 +178,27 @@ export default {
       this.$store.commit('user/updateUserData', userdata);
       this.$router.push({ path: 'user', query: userdata });
     },
-    toResult() {
-      console.log('集計結果画面');
+    /**
+     * 上位2つの応募日を取得し返却する
+     */
+    async setApplicationDateData() {
+      const applicationDateResponse = await chouseiApi.getApplicationDate(getQuaryDate());
+      if (!applicationDateResponse) return;
+
+      const applicationDatelist = applicationDateResponse.applicationDate;
+      const applicationDateOptions = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short', hour: '2-digit', minute: '2-digit' };
+
+      // 画面表示用に取得した応募日を加工
+      applicationDatelist.forEach(
+        dateObj => {
+          if (!dateObj.application_date_from || !dateObj.application_date_to) return;
+          const from = new Date(dateObj.application_date_from).toLocaleString('ja-JP', applicationDateOptions);
+          const to = new Date(dateObj.application_date_to).toLocaleString('ja-JP', applicationDateOptions);
+          const dateArrJp = _.uniq(_.flatten([from.split(' '), to.split(' ')]));
+          const data = { applicationDate: `${dateArrJp[0]} ${dateArrJp[1]} ~ ${dateArrJp[2]}` };
+          this.applicationDateData.push(data);
+        }
+      );
     },
     formatDate: (date) => {
       const options = { yaer: 'long', month: 'long', day: 'numeric', weekday: 'short' };

@@ -1,6 +1,6 @@
 ---- drop ----
 DROP TABLE IF EXISTS chousei_user;
-DROP TABLE IF EXISTS candidate_dates;
+DROP TABLE IF EXISTS candidate_date;
 DROP TABLE IF EXISTS candidate_date_status;
 DROP TABLE IF EXISTS lottery_status;
 
@@ -41,6 +41,7 @@ create table IF not exists lottery_status
  candidate_time_from    timestamp NOT NULL,
  candidate_time_to    timestamp NOT NULL,
  lottery_status    VARCHAR NOT NULL,
+ lottery_status_magnification    DOUBLE PRECISION NOT NULL,
  created_at       timestamp DEFAULT NULL,
  updated_at       timestamp DEFAULT NULL,
     PRIMARY KEY (id)
