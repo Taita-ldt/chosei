@@ -191,6 +191,7 @@ export default {
       // 画面表示用に取得した応募日を加工
       applicationDatelist.forEach(
         dateObj => {
+          if (!dateObj.application_date_from || !dateObj.application_date_to) return;
           const from = new Date(dateObj.application_date_from).toLocaleString('ja-JP', applicationDateOptions);
           const to = new Date(dateObj.application_date_to).toLocaleString('ja-JP', applicationDateOptions);
           const dateArrJp = _.uniq(_.flatten([from.split(' '), to.split(' ')]));
