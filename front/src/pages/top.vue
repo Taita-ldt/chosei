@@ -144,13 +144,13 @@ export default {
 
     async setCandidateTable() {
       const response = await chouseiApi.getLotteryStatus(getQuaryDate());
-      console.log(response);
       if (!response) return;
 
       this.lotteryStatusColumns.push({ align: 'center', field: 'row1' });
       const col1 = { row1: '抽選倍率 - 日比谷公園' };
       const col2 = { row1: '17:00' };
       const col3 = { row1: '19:00' };
+      const orgRound = (value) => Math.round(value * 10) / 10;
 
       const dateList = _.uniq(_.map(response.lotteryStatus, 'candidate_date'));
       dateList.forEach(
@@ -158,7 +158,7 @@ export default {
           // 時間を引数に抽選状況のリストを返す関数
           const getStatus = (time) => response.lotteryStatus.find(
             res => res.candidate_time === time && date === res.candidate_date
-          ).lottery_status;
+          ).lottery_status_magnification;
           // 列定義を設定
           const rowDef = { align: 'center', field: `row${date}` };
           // 第一候補日をハイライト
@@ -166,8 +166,8 @@ export default {
           this.lotteryStatusColumns.push(rowDef);
 
           col1[`row${date}`] = this.formatDate(date);
-          col2[`row${date}`] = getStatus('17');
-          col3[`row${date}`] = getStatus('19');
+          col2[`row${date}`] = orgRound(getStatus('17'));
+          col3[`row${date}`] = orgRound(getStatus('19'));
         }
       );
       this.lotteryStatusData.push(col1, col2, col3);
