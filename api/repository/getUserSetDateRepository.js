@@ -35,7 +35,7 @@ module.exports = {
       await candidateDateStatus.create({
         user_id: userId,
         candidate_date_id: candidateDateId,
-        status: 1,
+        status: 0,
         created_at: new Date(),
         updated_at: new Date(),
       })
