@@ -211,10 +211,10 @@ export default {
      */
     setCandidateDate: (dateList, num) => {
       if (!dateList) return [];
-      const cdcList = _.uniq(_.map(dateList, 'candidate_date_count'));
+      const cdcList = _.uniq(_.map(dateList, 'status_sum'));
       num--;
       return cdcList.length > num
-        ? _.filter(dateList, { candidate_date_count: cdcList[num] }) : null;
+        ? _.filter(dateList, { status_sum: cdcList[num] }) : null;
     },
   },
   computed: {
