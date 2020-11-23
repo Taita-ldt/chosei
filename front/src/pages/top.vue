@@ -179,7 +179,7 @@ export default {
       this.$router.push({ path: 'user', query: userdata });
     },
     /**
-     * 上位2つの応募日を取得し返却する
+     * 上位1つの応募日を取得し返却する
      */
     async setApplicationDateData() {
       const applicationDateResponse = await chouseiApi.getApplicationDate(getQuaryDate());
