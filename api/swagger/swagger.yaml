@@ -17,7 +17,7 @@ paths:
       tags:
       - Get Application Date
       operationId: getApplicationDate
-      summary: 指定した月の上位2日の応募日を返す。
+      summary: 指定した月の上位1日の応募日を返す。
       parameters:
       - name: "month"
         in: "path"
@@ -64,8 +64,8 @@ definitions:
           type: object
           items:
             type: string
-        example: [ { application_date_from: "2020-10-15T07:00:00.000Z", application_date_to: "2020-10-15T10:00:00.000Z" }, { application_date_from: "2020-10-16T010:00:00.000Z", application_date_to: "2020-10-16T12:00:00.000Z" } ]
-        description: 配列の0番目の日付が第1抽選日,1番目の日付が第2抽選日。配列要素には開始日・終了日を格納。日付はUTC。
+        example: [ { application_date_from: "2020-10-15T07:00:00.000Z", application_date_to: "2020-10-15T10:00:00.000Z" } ]
+        description: 配列の0番目の日付が第1抽選日。配列要素には開始日・終了日を格納。日付はUTC。
   UserSetDate:
     type: object
     properties:
