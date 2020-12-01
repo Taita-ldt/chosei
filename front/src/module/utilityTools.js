@@ -5,7 +5,7 @@ export const getQuaryDate = () => {
   const date = new Date();
   let yaer = date.getFullYear();
   let month = date.getMonth() + 2;
-  if(month > 12) {
+  if (month > 12) {
     yaer += 1;
     month %= 12;
   }
