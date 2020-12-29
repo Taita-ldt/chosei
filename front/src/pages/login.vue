@@ -1,21 +1,32 @@
 <template>
   <q-page padding>
-    <div class="content">
-      ログインページ
-    </div>
-      <q-input filled v-model="loginKey" label="Filled" />
-    <div class="submit-key">
-      <q-btn color="primary" @click="authCheck" label="送信"/>
-      <!-- <q-btn color="primary" @click="authenticatedCheck" label="送信"/> -->
-    </div>
+    <EvenlyArticle>
+      <template v-slot:head>ログインページ</template>
+      <template v-slot:body>
+        <div class='col-6'>
+          <q-input filled label="password" v-model="loginKey" />
+        </div>
+      </template>
+    </EvenlyArticle>
+    <EvenlyArticle>
+      <template v-slot:body>
+      <div class="submit-key">
+        <q-btn color="primary" @click="authCheck" label="送信"/>
+      </div>
+      </template>
+    </EvenlyArticle>
   </q-page>
 </template>
 
 <script>
+import EvenlyArticle from '../layouts/evenly-article';
 import { authApi } from '../module/api';
 
 export default {
   name: 'Login',
+  components: {
+    EvenlyArticle
+  },
   data() {
     return {
       loginKey: '',
@@ -31,42 +42,33 @@ export default {
      */
     async initAuthCheck() {
       // tokenが正常であればトップ画面に遷移する
-      // const isAuthenticated = await this.authenticatedCheck();
       const res = await this.authenticatedCheck();
-      console.log(`res: ${res}`);
       if (res) {
         this.isAuthenticated = res;
-        console.log(`loginKey: ${this.loginKey}`);
-        console.log(`isAuthenticated: ${this.isAuthenticated}`);
         this.toTop();
       }
     },
-    // TODO: 認証を全画面に適用するならrouterに組み込む
     /**
      * 入力したキーを認証し発行されたトークンを取得する
      */
     async authCheck() {
       try {
-        // tokenが正常であれば処理を終了する
-        const isAuthenticated = await this.authenticatedCheck();
-        if (isAuthenticated) {
-          this.isAuthenticated = isAuthenticated;
-          console.log(`loginKey: ${this.loginKey}`);
-          console.log(`isAuthenticated: ${this.isAuthenticated}`);
-          this.toTop();
-        }
-
         const mydata = { KEY: null };
         // mydata.KEY = await window.prompt('Please input your key!!');
         mydata.KEY = this.loginKey;
         const response = await authApi.authentication(mydata);
-        console.log(response.data);
         if (response.apiStatus && response.apiStatus.value === 'ok') {
           console.log('OK');
           sessionStorage.token = response.data.token;
         } else {
           console.log('BAD');
           throw new Error();
+        }
+
+        const isAuthenticated = await this.authenticatedCheck();
+        if (isAuthenticated) {
+          this.isAuthenticated = isAuthenticated;
+          this.toTop();
         }
       } catch (e) {
         console.log(e);
@@ -86,7 +88,7 @@ export default {
      * トップ画面に遷移する
      */
     toTop() {
-      console.log(this.loginKey);
+      console.log(`loginKey: ${this.loginKey}`);
       this.$router.push('/top');
     },
     toError401() {

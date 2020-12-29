@@ -91,19 +91,20 @@ export default {
       applicationDateData: []
     };
   },
+  created() {
+    this.authCheck();
+  },
   mounted() {
     this.initForm();
   },
-
   methods: {
-    // TODO: 認証を全画面に適用するならrouterに組み込む
+    /**
+     * 画面遷移時にトークンの有無と有効性をチェック
+     */
     async authCheck() {
-      // try {
-      tokenが正常であれば処理を終了する
+      // tokenが正常であれば処理を終了する
       const isAuthenticated = await this.authenticatedCheck();
-      if (isAuthenticated){
-        return;
-      }else{
+      if (!isAuthenticated) {
         console.log('Not Authenticated');
         this.$router.push('/');
       }
@@ -115,7 +116,6 @@ export default {
       return (response.apiStatus && response.apiStatus.value === 'ok');
     },
     async initForm() {
-      // await this.authCheck();
       this.getUserResponse = await chouseiApi.getUser();
       this.userlist = _.map(this.getUserResponse, 'name');
 
