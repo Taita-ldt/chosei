@@ -89,7 +89,7 @@ export default {
      */
     toTop() {
       console.log(`loginKey: ${this.loginKey}`);
-      this.$router.push('/top');
+      this.$router.push('/');
     },
     toError401() {
       console.log('toError401');
