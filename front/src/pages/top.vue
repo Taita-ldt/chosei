@@ -91,47 +91,31 @@ export default {
       applicationDateData: []
     };
   },
+  created() {
+    this.authCheck();
+  },
   mounted() {
     this.initForm();
   },
-
   methods: {
-    // TODO: 認証を全画面に適用するならrouterに組み込む
+    /**
+     * 画面遷移時にトークンの有無と有効性をチェック
+     */
     async authCheck() {
-      try {
-        // tokenが正常であれば処理を終了する
-        const isAuthenticated = await this.authenticatedCheck();
-        if (isAuthenticated) return;
-
-        const mydata = { KEY: null };
-        mydata.KEY = await window.prompt('Please input your key!!');
-        const response = await authApi.authentication(mydata);
-        console.log(response.data);
-        if (response.apiStatus && response.apiStatus.value === 'ok') {
-          console.log('OK');
-          localStorage.token = response.data.token;
-        } else {
-          console.log('BAD');
-          throw new Error();
-        }
-      } catch (e) {
-        console.log(e);
-        this.toError401();
+      // tokenが正常であれば処理を終了する
+      const isAuthenticated = await this.authenticatedCheck();
+      if (!isAuthenticated) {
+        console.log('Not Authenticated');
+        this.$router.push('/');
       }
     },
     async authenticatedCheck() {
-      if (!localStorage.token) return false;
-      const myToken = { token: localStorage.token };
+      if (!sessionStorage.token) return false;
+      const myToken = { token: sessionStorage.token };
       const response = await authApi.checkToken(myToken);
       return (response.apiStatus && response.apiStatus.value === 'ok');
     },
-    toError401() {
-      console.log('toError401');
-      this.$router.push({ path: 'auth_error' });
-    },
-
     async initForm() {
-      await this.authCheck();
       this.getUserResponse = await chouseiApi.getUser();
       this.userlist = _.map(this.getUserResponse, 'name');
 

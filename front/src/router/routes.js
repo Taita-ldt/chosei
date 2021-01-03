@@ -3,7 +3,8 @@ const routes = [
     path: '/',
     component: () => import('layouts/main-layout.vue'),
     children: [
-      { path: '', component: () => import('pages/top.vue') },
+      { path: '', component: () => import('pages/login.vue') },
+      { path: 'top', component: () => import('pages/top.vue') },
       { path: 'user', component: () => import('pages/select-date.vue') },
       { path: 'auth_error', component: () => import('pages/error401.vue') },
     ],
