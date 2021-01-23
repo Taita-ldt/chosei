@@ -4,7 +4,7 @@
       <template v-slot:head>ログインページ</template>
       <template v-slot:body>
         <div class='col-6'>
-          <q-input filled label="password" v-model="loginKey" />
+          <q-input type="password" filled label="password" v-model="loginKey"/>
         </div>
       </template>
     </EvenlyArticle>
@@ -88,7 +88,6 @@ export default {
      * トップ画面に遷移する
      */
     toTop() {
-      console.log(`loginKey: ${this.loginKey}`);
       this.$router.push('/');
     },
     toError401() {

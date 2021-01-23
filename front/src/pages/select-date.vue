@@ -49,7 +49,7 @@ export default {
     },
     async toChousei() {
       await chouseiApi.patchCandidateDateStatus(this.getQuery.id, this.getPatchData());
-      this.$router.push('/login');
+      this.$router.push('/');
     },
     getPatchData() {
       const localCandidateDates = this.candidateDates.data;
