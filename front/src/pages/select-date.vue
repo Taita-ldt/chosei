@@ -13,14 +13,13 @@
       <q-btn color="primary" @click="toChousei" label="確定"/>
     </div>
   </q-page>
-
 </template>
 
 <script>
 import _ from 'lodash';
 import DateSelectForm from 'components/date-select-form';
 import EvenlyArticle from '../layouts/evenly-article';
-import { chouseiApi, authApi } from '../module/api';
+import { chouseiApi } from '../module/api';
 import { getQuaryDate } from '../module/utilityTools';
 
 export default {
@@ -36,31 +35,11 @@ export default {
       userName: this.$store.state.user.userName,
     };
   },
-  created() {
-    this.authCheck();
-  },
   mounted() {
     this.getQuery = this.$route.query;
     this.initForm();
   },
   methods: {
-    /**
-     * 画面遷移時にトークンの有無と有効性をチェック
-     */
-    async authCheck() {
-      // tokenが正常であれば処理を終了する
-      const isAuthenticated = await this.authenticatedCheck();
-      if (!isAuthenticated) {
-        console.log('Not Authenticated');
-        this.$router.push('/');
-      }
-    },
-    async authenticatedCheck() {
-      if (!sessionStorage.token) return false;
-      const myToken = { token: sessionStorage.token };
-      const response = await authApi.checkToken(myToken);
-      return (response.apiStatus && response.apiStatus.value === 'ok');
-    },
     async initForm() {
       const setQuery = { month: getQuaryDate(), user: this.getQuery.id };
       this.candidateDates = await chouseiApi.getUserSetDate(setQuery);
