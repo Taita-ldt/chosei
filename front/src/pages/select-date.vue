@@ -13,7 +13,6 @@
       <q-btn color="primary" @click="toChousei" label="確定"/>
     </div>
   </q-page>
-
 </template>
 
 <script>
