@@ -11,7 +11,7 @@
   "author": "Bigtree Technology & Consulting Ltd.",
   "dependencies": {
     "app-root-path": "^3.0.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "log4js": "^6.1.2",
     "moment": "^2.27.0",
     "pg": "^7.18.2",
