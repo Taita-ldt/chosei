@@ -7,8 +7,6 @@ RUN apk update && \
     openjdk8 \
     wget
 
-RUN npm install -g @quasar/cli
-
 ## ENV settings
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV SDK_TOOL_VERSION=sdk-tools-linux-4333796
