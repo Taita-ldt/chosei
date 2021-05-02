@@ -1,3 +1,4 @@
+/* eslint-disable */
 // TODO 削除
 export default {
     Region: 'ap-northeast-1',

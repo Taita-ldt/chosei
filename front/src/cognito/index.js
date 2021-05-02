@@ -1,7 +1,4 @@
-import Vue from 'vue'
+/* eslint-disable */
 import Cognito from './cognito'
-import config from './../config'
-
-Vue.use(Cognito, config)
 
 export default new Cognito()

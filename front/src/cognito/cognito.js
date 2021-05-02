@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     CognitoUserPool,
     CognitoUser,
@@ -5,6 +6,7 @@ import {
     CognitoUserAttribute
   } from 'amazon-cognito-identity-js'
   import { Config, CognitoIdentityCredentials } from 'aws-sdk'
+  import cognitoConfig from '../config/config'
   
   export default class Cognito {
     configure (config) {
@@ -78,6 +80,10 @@ import {
      * username, passwordでログイン
      */
     login (username, password) {
+      this.userPool = new CognitoUserPool({
+        UserPoolId: cognitoConfig.UserPoolId,
+        ClientId: cognitoConfig.ClientId
+      })
       const userData = { Username: username, Pool: this.userPool }
       const cognitoUser = new CognitoUser(userData)
       const authenticationData = { Username: username, Password: password }
