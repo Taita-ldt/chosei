@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import Cognito from '../cognito/index';
+
 export default {
   name: 'Login',
   data() {
@@ -28,7 +30,7 @@ export default {
   },
   methods: {
     login() {
-      this.$cognito.login(this.username, this.password)
+      Cognito.login(this.username, this.password)
         .then(result => {
           this.$router.replace('/top');
           console.log({ result });
