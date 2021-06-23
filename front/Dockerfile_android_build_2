@@ -1,15 +1,13 @@
-FROM frolvlad/alpine-glibc:latest
+FROM node:13.7-alpine
 ## install package
 RUN apk update && \
     apk upgrade && \
     apk --no-cache --virtual .build add \
     bash \
     openjdk8 \
-    wget \
-    nodejs \
-    nodejs-npm
-RUN npm install -g @quasar/cli
-
+    wget
+RUN yarn global add @quasar/cli
+RUN yarn global add cordova
 ## ENV settings
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV SDK_TOOL_VERSION=sdk-tools-linux-4333796

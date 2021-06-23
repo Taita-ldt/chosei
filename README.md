@@ -56,3 +56,5 @@ Starting chousei-api ... done
 Starting chousei-front ... done
 ```
 コンテナ起動後、http://localhost:8080 にアクセス。
+
+docker run -it --name md-build-2 -d -v "$(pwd)":/app android_build

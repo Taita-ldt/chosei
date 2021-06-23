@@ -64,8 +64,9 @@ class Api {
 }
 
 const API_CONFIG = {};
-API_CONFIG.BASE_URL = `${process.env.VUE_APP_BASE_URL}/mng`;
-API_CONFIG.AUTH_URL = `${process.env.VUE_APP_AUTH_TEMP_URL}`;
+// debug
+API_CONFIG.BASE_URL = 'https://chousei-api-prod.herokuapp.com/mng';
+API_CONFIG.AUTH_URL = 'https://on8ch3z0n8.execute-api.ap-northeast-1.amazonaws.com/dev';
 /** *******************
  * API Settings
  * ****************** */
