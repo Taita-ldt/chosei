@@ -69,7 +69,7 @@ module.exports = function (ctx) {
       env: {
         VUE_APP_BASE_URL: ctx.dev
           ? 'http://localhost:3000'
-          : 'http://API_URL',
+          : 'http://API_URL/mng',
         VUE_APP_AUTH_TEMP_URL: ctx.dev
           ? 'http://localhost:3001'
           : 'http://AUTH_API_URL'
