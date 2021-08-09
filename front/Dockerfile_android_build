@@ -7,8 +7,8 @@ RUN apk update && \
     openjdk8 \
     wget \
     nodejs \
-    nodejs-npm
-RUN npm install -g @quasar/cli
+    yarn
+RUN yarn global add @quasar/cli
 
 ## ENV settings
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
@@ -31,3 +31,7 @@ RUN yes | sdkmanager --licenses
 
 # install android tools and more
 RUN sdkmanager "tools" "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "platform-tools" "extras;android;m2repository"
+
+# build unsigned.apk
+RUN quasar mode add capacitor
+RUN quasar build -m capacitor -T android
