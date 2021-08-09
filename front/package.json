@@ -4,7 +4,7 @@
   "description": "BTCTCのポータルサイトです。",
   "productName": "BTCTCポータル",
   "cordovaId": "org.cordova.quasar.app",
-  "capacitorId": "",
+  "capacitorId": "org.btctc.chousei.app",
   "author": "會田 剛巳/ aita tsuyoshi <tsuyoshi.aita@bigtreetc.com>",
   "private": true,
   "scripts": {
