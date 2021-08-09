@@ -39,9 +39,7 @@ jobs:
       if: failure()
       run: |
         echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ失敗(${{ github.event.head_commit.message }})"}' |
-        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
 
     - name: success
       run: |
         echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "APIデプロイ成功(${{ github.event.head_commit.message }})"}' |
-        curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
