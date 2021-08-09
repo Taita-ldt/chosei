@@ -66,7 +66,14 @@ module.exports = function (ctx) {
       // Options below are automatically set depending on the env, set them if you want to override
       // preloadChunks: false,
       // extractCSS: false,
-
+      env: {
+        VUE_APP_BASE_URL: ctx.dev
+          ? 'http://localhost:3000'
+          : 'http://API_URL',
+        VUE_APP_AUTH_TEMP_URL: ctx.dev
+          ? 'http://localhost:3001'
+          : 'http://AUTH_API_URL'
+      },
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
         cfg.module.rules.push({
@@ -85,7 +92,10 @@ module.exports = function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       port: 8081,
-      open: false
+      open: false,
+      watchOptions: {
+        poll: true
+      }      
     },
 
     // animations: 'all', // --- includes all animations

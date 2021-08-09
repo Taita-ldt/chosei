@@ -34,8 +34,8 @@ jobs:
         API_URL:  ${{ secrets.API_URL }}
         AUTH_API_URL:  ${{ secrets.AUTH_API_URL }}
       run: |
-        sed -i "s|http:\/\/localhost:8080|${API_URL}|" prod.env
-        sed -i "s|http:\/\/localhost:3001|${AUTH_API_URL}|" prod.env
+        sed -i "s|http:\/\/API_URL|${API_URL}|" quasar.conf.js
+        sed -i "s|http:\/\/AUTH_API_URL|${AUTH_API_URL}|" quasar.conf.js
         docker build -t chousei-front .
         docker run --name chousei-front -d chousei-front
 
