@@ -33,7 +33,7 @@ jobs:
       run: |
         curl \
           -H "Authorization: token ${{secrets.DEPLOY_GATE_API_KEY}}" \
-          -F "file=@dist/capacitor/android/app-release-unsigned.apk" \
+          -F "file=@app-release-unsigned.apk" \
           -F "message=${{github.event.pull_request.title}}" \
           -v "https://deploygate.com/api/users/${{secrets.DEPLOY_GATE_USER_NAME}}/apps"
 
