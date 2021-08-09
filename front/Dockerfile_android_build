@@ -33,6 +33,7 @@ RUN yes | sdkmanager --licenses
 RUN sdkmanager "tools" "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFORMS_VERSION}" "platform-tools" "extras;android;m2repository"
 
 # build unsigned.apk
+RUN yarn
 RUN quasar mode add capacitor
 RUN quasar build -m capacitor -T android
 RUN mv /app/dist/capacitor/android/apk/release/app-release-unsigned.apk .
