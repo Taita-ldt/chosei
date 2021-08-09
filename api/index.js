@@ -18,7 +18,7 @@ app.set('port', port);
 app.use(bodyParser.json());
 
 // cors対策
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 models.sequelize.sync().then(() => {
   logger.info('Start chousei-api');
