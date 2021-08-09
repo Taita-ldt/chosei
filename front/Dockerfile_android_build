@@ -35,4 +35,4 @@ RUN sdkmanager "tools" "build-tools;${BUILD_TOOLS_VERSION}" "platforms;${PLATFOR
 # build unsigned.apk
 RUN quasar mode add capacitor
 RUN quasar build -m capacitor -T android
-RUN mv dist/capacitor/android/apk/release/app-release-unsigned.apk .
+RUN mv /app/dist/capacitor/android/apk/release/app-release-unsigned.apk .
