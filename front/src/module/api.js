@@ -64,8 +64,8 @@ class Api {
 }
 
 const API_CONFIG = {};
-API_CONFIG.BASE_URL = `${process.env.VUE_APP_BASE_URL}/mng`;
-API_CONFIG.AUTH_URL = `${process.env.VUE_APP_AUTH_TEMP_URL}`;
+API_CONFIG.BASE_URL = process.env.VUE_APP_BASE_URL;
+API_CONFIG.AUTH_URL = process.env.VUE_APP_AUTH_TEMP_URL;
 /** *******************
  * API Settings
  * ****************** */

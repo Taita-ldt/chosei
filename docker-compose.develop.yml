@@ -52,8 +52,7 @@ services:
   chousei-batch-dev:
     build: 
       context: ./batch
-      dockerfile: Dockerfile_batch_dev
-    image: chousei-batch-dev
+    image: node:13.7-alpine
     container_name: chousei-batch-dev
     environment:
       NODE_ENV: development
