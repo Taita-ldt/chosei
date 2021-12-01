@@ -21,5 +21,5 @@ jobs:
     - name: failure
       if: failure()
       run: |
-        echo '{"text": "API動いてないかも、、、"}' |
+        echo '{"text": "API動いてないかも、、、、"}' |
         curl -H 'Content-Type: application/json' -d @- ${{ secrets.TEAMS_URL }}
