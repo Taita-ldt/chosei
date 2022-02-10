@@ -4,6 +4,7 @@
     "loggerLevel": "debug"
   },
   "production": {
-    "loggerLevel": "info"
+    "loggerLevel": "info",
+    "ssl": true
   }
 }
