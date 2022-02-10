@@ -16,7 +16,7 @@ const axios = axiosBase.create({
 module.exports = {
   async doProcess() {
     const monthDate = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const nextMonth = moment().add(1, 'months');
+    const nextMonth = moment().add(2, 'months');
     const year = nextMonth.year();
     const month = (nextMonth.month()) % 12;
     const horiday = await axios.get(`/${year}/date.json`);
@@ -43,7 +43,7 @@ module.exports = {
       let date = '';
       let candidate_month = '';
       let candidate_date = '';
-      for (let day = 1; day <= monthDate[month]; day++){
+      for (let day = 1; day <= monthDate[month]; day++) {
         date = moment([year, month, day]);
         if (isSatOrSun(date) || isHoriday(date)) {
           candidate_month = nextMonth.format("YYYYMM");
