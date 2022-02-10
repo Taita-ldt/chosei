@@ -5,6 +5,8 @@
   },
   "production": {
     "loggerLevel": "info",
-    "ssl": true
+    "dialectOptions": {
+      "ssl": true
+    }
   }
 }
