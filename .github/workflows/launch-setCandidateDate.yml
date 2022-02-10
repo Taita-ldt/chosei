@@ -1,4 +1,4 @@
-name: Deploy api
+name: Launch setCandidateDate
  
 on:
   schedule:
