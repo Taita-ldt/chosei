@@ -1,0 +1,33 @@
+name: Deploy api
+ 
+on:
+  schedule:
+    - cron: '40 14 10 * *'
+
+jobs:
+  main:
+ 
+    runs-on: ubuntu-18.04
+    timeout-minutes: 300
+ 
+    steps:
+    - uses: actions/checkout@v1    
+ 
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login 
+      
+    - name: launch batch
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku run -a ${{ secrets.HEROKU_BATCH_NAME }} node batch.js setCandidateDate
+
+    - name: failure
+      if: failure()
+      run: |
+        echo '{"text": "## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "日程追加バッチ実行失敗"}' |
+
+    - name: success
+      run: |
+        echo '{"text": "## app  \n<https://btctc-coordinate.github.io/#/>  \n## log  \n<https://github.com/Taita-ldt/chousei/actions/runs/${{ github.run_id }}>", "title": "日程追加バッチ実行失敗"}' |
