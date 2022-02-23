@@ -23,6 +23,7 @@ services:
     container_name: chousei-api-dev
     environment:
       NODE_ENV: development
+      CHOKIDAR_USEPOLLING: 1
     hostname: "chousei-api"
     ports:
       - "3000:3000"
@@ -61,6 +62,22 @@ services:
       - chousei-db
     volumes:
       - ./batch:/usr/src/app
+    stdin_open: true
+    tty: true
+    command: /bin/sh
+
+  chousei-auth-dev:
+    build: 
+      context: ./auth-api
+    image: node:13.7-alpine
+    container_name: chousei-auth-dev
+    environment:
+      NODE_ENV: development
+    hostname: "chousei-auth"
+    ports:
+      - "3001:3001"    
+    volumes:
+      - ./auth-api:/usr/src/app
     stdin_open: true
     tty: true
     command: /bin/sh
