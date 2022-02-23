@@ -68,7 +68,7 @@ module.exports = function (ctx) {
       // extractCSS: false,
       env: {
         VUE_APP_BASE_URL: ctx.dev
-          ? 'http://localhost:3000'
+          ? 'http://localhost:3000/mng'
           : 'http://API_URL/mng',
         VUE_APP_AUTH_TEMP_URL: ctx.dev
           ? 'http://localhost:3001'

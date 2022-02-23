@@ -7,6 +7,7 @@ const routes = [
       { path: 'login', component: () => import('pages/login.vue') },
       { path: 'user', component: () => import('pages/select-date.vue'), meta: { requireAuth: true } },
       { path: 'auth_error', component: () => import('pages/error401.vue') },
+      { path: 'useredit', component: () => import('pages/user-edit.vue'), meta: { requireAuth: true } }
     ],
   },
 ];

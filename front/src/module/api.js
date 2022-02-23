@@ -72,6 +72,8 @@ API_CONFIG.AUTH_URL = process.env.VUE_APP_AUTH_TEMP_URL;
 
 export const chouseiApi = {
   getUser: () => Api.fetchGet(`${API_CONFIG.BASE_URL}/user`).then((d) => Api.toJson(d)),
+  addUser: (newUserName) => Api.fetchPost(`${API_CONFIG.BASE_URL}/user`, newUserName).then((d) => Api.toJson(d)),
+  deleteUser: (userId) => Api.fetchDelete(`${API_CONFIG.BASE_URL}/user/${userId}`).then((d) => d),
   getUserSetDate: (where) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/user`, where).then((d) => Api.toJson(d)),
   getCandidateDate: (month) => Api.fetchGet(`${API_CONFIG.BASE_URL}/date/month/${month}`).then((d) => Api.toJson(d)),
   patchCandidateDateStatus: (id, data) => Api.fetchPatch(`${API_CONFIG.BASE_URL}/date/${id}`, data),
