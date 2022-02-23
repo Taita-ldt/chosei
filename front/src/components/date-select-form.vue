@@ -23,8 +23,8 @@
           </template>
 
           <template v-slot:triangle>
-            <div class="row items-center no-wrap" style='transform:rotate(180deg);'>
-              <q-icon name="details" />
+            <div class="row items-center no-wrap">
+              <q-icon name="change_history" />
             </div>
           </template>
 
