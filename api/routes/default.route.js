@@ -10,6 +10,8 @@ module.exports = function (app) {
 
   // userAPI
   app.get(userAPI, userController.getUserList);
+  app.post(userAPI, userController.addUser);
+  app.delete(userAPI + '/:userId', userController.deleteUser);
   
   // dateAPI
   app.get(dateAPI + '/month/:month', candidateDateController.getCandidateDate);

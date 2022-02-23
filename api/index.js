@@ -16,6 +16,11 @@ const corsOptions = {
 
 app.set('port', port);
 app.use(bodyParser.json());
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
 
 // cors対策
 app.use(cors(corsOptions));
@@ -37,11 +42,6 @@ app.use('/mng', errorHandler.clientErrorHandler);
 // エラーベージ表示用エラーハンドラ
 app.use(errorHandler.errorHandler);
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-});
 
 const server = http.createServer(app);
 server.listen(port);
