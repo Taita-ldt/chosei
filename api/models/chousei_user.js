@@ -1,7 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('chousei_user', {
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
     underscored: true,
     freezeTableName: true,

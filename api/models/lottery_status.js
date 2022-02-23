@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     candidate_time_from: DataTypes.DATE,
     candidate_time_to: DataTypes.DATE,
     lottery_status: DataTypes.STRING,
-    lottery_status_magnification: DataTypes.DOUBLE
+    lottery_status_magnification: DataTypes.DOUBLE,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
     underscored: true,
     freezeTableName: true,

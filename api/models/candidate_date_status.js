@@ -3,7 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const candidate_date_status = sequelize.define('candidate_date_status', {
     user_id: DataTypes.INTEGER,
     candidate_date_id: DataTypes.INTEGER,
-    status: DataTypes.INTEGER
+    status: DataTypes.INTEGER,
+    created_at: DataTypes.DATE,
+    updated_at: DataTypes.DATE
   }, {
     underscored: true,
     freezeTableName: true,
