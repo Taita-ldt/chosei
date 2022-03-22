@@ -6,6 +6,12 @@
   },
   "production": {
     "loggerLevel": "info",
-    "arrowFrontUrl": ["https://taita-ldt.github.io", "https://btctc-coordinate.github.io"]
+    "arrowFrontUrl": ["https://taita-ldt.github.io", "https://btctc-coordinate.github.io"],
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
