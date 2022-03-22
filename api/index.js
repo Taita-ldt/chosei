@@ -8,6 +8,7 @@ const app = express();
 const logger = require('log4js').getLogger();
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/config/config.json')[env];
+const serverless = require('serverless-http');
 const port = process.env.PORT || 3000;
 const corsOptions = {
   origin: config.arrowFrontUrl,
@@ -47,3 +48,4 @@ const server = http.createServer(app);
 server.listen(port);
 module.exports = app;
 
+module.exports.handler = serverless(app); 
