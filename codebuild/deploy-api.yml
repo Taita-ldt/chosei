@@ -1,0 +1,12 @@
+ version: 0.2
+ phases:
+   install:
+     runtime-versions:
+       nodejs: 12
+     commands:
+       - cd api
+       - yarn
+ artifacts:
+   files:
+     - '**/*'
+   base-directory: api
