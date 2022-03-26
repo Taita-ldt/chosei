@@ -7,9 +7,14 @@
        - cd front
        - yarn global add @quasar/cli
        - yarn
+   lint:
+     commands:
        - yarn lint
+   lint:
+     commands:
+       - sed -i "s|http:\/\/API_URL|${API_URL}|" quasar.conf.js
+       - sed -i "s|http:\/\/AUTH_API_URL|${AUTH_API_URL}|" quasar.conf.js
        - quasar build
  artifacts:
    files:
-     - '**/*'
-   base-directory: front/dist/spa
+     - 'front/dist/spa/*'
