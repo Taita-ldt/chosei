@@ -16,4 +16,4 @@
  artifacts:
    files:
      - '**/*'
-   base-directory: 'front/dist/spa/*'
+   base-directory: 'front/dist/spa'
