@@ -9,8 +9,8 @@
        - yarn
    build:
      commands:
-       - sed -i "s|http:\/\/API_URL|${API_URL}|" quasar.conf.js
-       - sed -i "s|http:\/\/AUTH_API_URL|${AUTH_API_URL}|" quasar.conf.js
+       - sed -i "s|http:\/\/API_URL|$API_URL|" quasar.conf.js
+       - sed -i "s|http:\/\/AUTH_API_URL|$AUTH_API_URL|" quasar.conf.js
        - yarn lint
        - quasar build
  artifacts:
