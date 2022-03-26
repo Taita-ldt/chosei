@@ -15,5 +15,5 @@
        - quasar build
  artifacts:
    files:
-     - '*'
+     - '**/*'
    base-directory: 'front/dist/spa/*'
