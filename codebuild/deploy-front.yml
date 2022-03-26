@@ -7,8 +7,9 @@
        - cd front
        - yarn global add @quasar/cli
        - yarn
+       - yarn lint
        - quasar build
  artifacts:
    files:
-     - 'dist/spa/*'
-   base-directory: front
+     - '**/*'
+   base-directory: front/dist/spa
