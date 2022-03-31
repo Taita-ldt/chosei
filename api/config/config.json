@@ -1,7 +1,7 @@
 {
   "development": {
     "url": "postgres://chousei:chousei@chousei-db:5432/chousei",
-    "loggerLevel": "debug",
+    "loggerLevel": "info",
     "arrowFrontUrl": ["http://localhost:8081", "http://localhost"]
   },
   "production": {
