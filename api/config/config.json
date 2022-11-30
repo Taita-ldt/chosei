@@ -6,7 +6,7 @@
   },
   "production": {
     "loggerLevel": "info",
-    "arrowFrontUrl": ["https://taita-ldt.github.io", "https://btctc-coordinate.github.io"],
+    "arrowFrontUrl": ["https://taita-ldt.github.io", "https://btctc-coordinate.github.io", "http://btctc-chousei.s3-website-ap-northeast-1.amazonaws.com"],
     "dialectOptions": {
       "ssl": {
         "require": true,
