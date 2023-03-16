@@ -31,6 +31,7 @@ services:
       - chousei-db
     volumes:
       - ./api:/usr/src/app
+      - /usr/src/app/node_modules
     stdin_open: true
     tty: true
     command: /bin/sh
@@ -46,6 +47,7 @@ services:
       - "8081:8081"
     volumes:
       - ./front:/usr/src/app
+      - /usr/src/app/node_modules
     stdin_open: true
     tty: true
     command: /bin/sh
@@ -62,6 +64,7 @@ services:
       - chousei-db
     volumes:
       - ./batch:/usr/src/app
+      - /usr/src/app/node_modules
     stdin_open: true
     tty: true
     command: /bin/sh
