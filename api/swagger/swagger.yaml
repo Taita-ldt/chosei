@@ -17,7 +17,7 @@ paths:
       tags:
       - Get Application Date
       operationId: getApplicationDate
-      summary: 指定した月の上位1日の応募日を返す。
+      summary: 指定した月の上位1日の応募日を返す。test
       parameters:
       - name: "month"
         in: "path"

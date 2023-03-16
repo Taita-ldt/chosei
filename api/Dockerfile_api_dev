@@ -1,4 +1,4 @@
-# ビルド環境
+# ビルド環境test
 FROM node:10
 WORKDIR /usr/src/app
 RUN npm install -g nodemon
