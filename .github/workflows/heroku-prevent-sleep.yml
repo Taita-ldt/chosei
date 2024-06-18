@@ -1,9 +1,9 @@
 name: Heroku Prevent Sleep
  
 on:
-  schedule:
-    - cron:  '*/25 * 1-10 * *'
-    - cron:  '*/25 15-23 28-31 * *'
+  push:
+    tags:
+      - heroku*
  
 jobs:
   main:
